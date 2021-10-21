@@ -1,16 +1,18 @@
 package pages;
 
-import java.util.concurrent.TimeUnit;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
+import testcases.TC_003;
 import webdriverfactory.WebDriverFactory;
 
 public class BasePage {
+	
+	private static final Logger logger = LogManager.getLogger(BasePage.class);
 	protected WebDriver driver;// this should never be static, if made static
 								// parallel exec of classes not possible
 	protected final static String base_url = "https://amazon.in";
@@ -19,10 +21,7 @@ public class BasePage {
 	private String getBrowserName() {
 		String browserDefault = "headless"; // Set by default
 		String browserSentFromCmd = System.getProperty("browser");
-		/*
-		 * maven execution command mvn clean install -Dbrowser=safari
-		 * browserSentFromCmd = safari
-		 */
+		
 
 		if (browserSentFromCmd == null) {
 			return browserDefault;
@@ -43,6 +42,11 @@ public class BasePage {
 
 		}
 	}
+	
+	/*
+	 * maven execution command mvn clean install -Dbrowser=safari
+	 * browserSentFromCmd = safari
+	 */
 
 	@After
 	public void clean_up() {
